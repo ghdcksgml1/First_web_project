@@ -1,0 +1,120 @@
+#signup{
+    _display:none;
+}
+#introSite{
+    display:none;
+}
+/* common */
+#siteComment{
+    border:3px solid #64cbf9;
+    padding:1rem;
+    font-size:2rem;
+    color:#64cbf9;
+}
+
+/* mobile base css source */
+@media screen and (min-width:0px) and (max-width:1199px){
+    body{
+        background:#fff;
+    }
+    #signupCenter{
+        width:80%;
+    }
+    #introSite{
+        clear:both;
+        float:left;
+        width:100%;
+    }
+    #siteComment{
+        margin:10% auto;
+        width:65%;
+        color:#64cbf9;
+    }
+    #signUpBtn{
+        margin:10% auto   15%;
+        width:100px;
+        height:30px;
+        background:#64cbf9;
+        text-align:center;
+        padding-top:1em;
+        border-radius:1rem;
+    }
+    #signUpBtn p{
+        font-size:1rem;
+        color:#fff;
+    }
+}
+
+#signupCenter{
+    margin:0 auto;
+}
+#signUpForm{
+    float:left;
+    width:98%;
+    margin:40px 0 40px 0;
+    padding-top:1rem;
+    border:1px solid #ccc;
+    border-radius:10px;
+}
+.row{
+    clear:both;
+    float:left;
+    width:100%;
+    margin-bottom:1.5rem;
+}
+.row label{
+    float:left;
+    width:20%;
+    padding-left:5%;
+    font-size:1.3rem;
+}
+.inputBox{
+    float:left;
+    width:90%;
+    background:#fff;
+    margin-left:1rem;
+    border:1px solid #ccc;
+}
+.row input{
+    float:left;
+    width:98%;
+    font-size:1.5rem;
+    margin-left:2%;
+    background:#fff;
+    border:none;
+}
+.row .selectBox{
+    float:left;
+    width:21%;
+    border:1px solid #ccc;
+    background:#fff;
+    margin-top:3px;
+}
+.row .selectBox select{
+    float:left;
+    background:#fff url('/images/index/selectTagBg.png');
+    border:none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-size:10px;
+    background-repeat: no-repeat;
+    background-position:90% 5px;
+    width:90%;
+    margin-left:5px;
+    font-size:1rem;
+}
+
+
+#birthYear{
+    font-size:1rem;
+}
+.selectBoxMargin{
+    margin-left:2%;
+    margin-right:2%;
+}
+.genderRow input{
+    width:15px;
+    margin-left:10%;
+    position:relative;
+    top:4px;
+}
