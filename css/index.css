@@ -1,8 +1,8 @@
 #signup{
-    _display:none;
+    display:none;
 }
 #introSite{
-    display:none;
+    _display:none;
 }
 /* common */
 #siteComment{
@@ -42,6 +42,23 @@
     #signUpBtn p{
         font-size:1rem;
         color:#fff;
+    }
+    #goToLoginBtn{
+        clear:both;
+        width:30%;
+        height:30px;
+        padding:0.4rem;
+        margin:0 auto 20px;
+        background:#64cbf9;
+        cursor: pointer;
+        text-align:center;
+        border-radius:10px;
+    }
+    #goToLoginBtn p{
+        font-size:1rem;
+        color:#fff;
+        position:relative;
+        top:5px;
     }
 }
 
@@ -118,3 +135,104 @@
     position:relative;
     top:4px;
 }
+
+#genderLabel{
+    clear:both;
+    width:80%;
+    margin:0 auto;
+}
+#gMM{
+    border-left:none;
+}
+.genderRow label{
+    float:left;
+    width:49%;
+    border:1px solid #ccc;
+    text-align:center;
+    padding-left:0;
+}
+.genderRow input{
+    clear:both;
+    float:none;
+    width:0px;
+    visibility: hidden;
+}
+
+#valueError{
+    float:left;
+    width:100%;
+    text-align:center;
+    color:red;
+    font-size:2em;
+}
+#siteComment{
+    border:3px solid #64cbf9;
+    padding:1rem;
+    font-size:2rem;
+    color:#64cbf9;
+}
+
+.submitBox{
+    clear:both;
+    float:left;
+    width:25%;
+    padding:0.4rem;
+    background:#64cbf9;
+    margin-left:5%;
+    border-radius:10px;
+}
+#signUpSubmit{
+    float:left;
+    width:100%;
+    background:none;
+    color:#fff;
+    text-align:center;
+    font-size:1rem;
+}
+
+/* desktop css source */
+@media screen and (min-width:1200px){
+    #loginForm{
+        display:block;
+    }
+    #container{
+        float:left;
+        width:100%;
+        min-height:100%;
+        background:url('/images/index/coDing.jpg');
+        background-size:cover;
+    }
+    #siteComment{
+        margin:2% auto   0;
+        width:210px;
+        background:rgba(255,255,255,0.9);
+    }
+    #introSite{
+        display:block;
+    }
+    #signUpBtn,#goToLoginBtn{
+        display:none;
+    }
+    #signup{
+        display:block;
+        margin-top:1%;
+        margin-bottom:5%;
+    }
+    #signupCenter{
+        width:50%;
+    }
+    #signUpForm{
+        background:rgba(255,255,255,0.8);
+    }
+    .inputBox{
+        height:40px;
+    }
+    .row input{
+        height:40px;
+    }
+    .submitBox{
+        width:10%;
+        padding:0.2rem;
+    }
+}
+/* end of desktop css source */
