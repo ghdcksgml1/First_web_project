@@ -43,3 +43,113 @@
   text-align: center;
   cursor: pointer;
 }
+.myButtonBox a{
+  color:#555;
+}
+.photoBox{
+  clear:both;
+  float:right;
+  margin-top:3px;
+  border:1px solid #64cbf9
+}
+.myButtonBox .photoSelectorBtn{
+  width:70%;
+  height:24px;
+}
+#myProfilePhotoUploadBtn, #myCoverPhotoUploadBtn{
+  float:right;
+  height:24px;
+  padding:0 2px 0 2px;
+}
+/* 다음 코드는 현재 꾸미려는 부분 외에는 우선 안 보이게 처리하기 위함 */
+#myContent{
+  _display:none;
+}
+
+/* mobile base */
+@media screen and (min-width:0px) and (max-width:1199px){
+  #name{width:100%}
+}
+
+@media screen and (min-width:320px) and (max-width:374px){
+  #myProfilePhoto{
+    width:80px;
+    max-height:100px;
+  }
+}
+@media screen and (min-width:375px) and (max-width:399px){
+  #myProfilePhoto{
+    width:80px;
+    max-height:100px;
+  }
+  #myWallPhoto{
+    height:170px;
+  }
+}
+
+@media screen and (min-width:400px) and (max-width:500px){
+  #myProfilePhoto{
+    width:100px;
+    max-height:120px;
+  }
+  #myWallPhoto{
+    height:200px;
+  }
+}
+
+@media screen and (min-width:501px) and (max-width:700px){
+  #myProfilePhoto{
+    width:150px;
+    max-height:170px;
+  }
+  #myWallPhoto{
+    height:300px;
+  }
+}
+
+@media screen and (min-width:427px) and (max-width:729px){
+  .myButtonBox{clear:both;}
+}
+@media screen and (min-width:500px){
+  .likeNum{
+    clear:both;
+    width:33%;
+    cursor:pointer;
+    border:none;
+  }
+  .likeBtn{
+    width:33%;
+    cursor:pointer;
+    border-left:1px solid #ccc;
+    border-right:1px solid #ccc;
+  }
+  .contentsID{
+    width:33%;
+    cursor:pointer;
+  }
+}
+
+/* pc */
+@media screen and (min-width:1200px){
+  #myProfilePhoto{
+    float:left;
+    widht:200px;
+    margin-left:50px;
+  }
+  #myProfilePhoto img{
+    float:left;
+    width:100%;
+    margin-top: -40%;
+    border:5px dotted #64cbf9;
+  }
+  #name{
+    float:left;
+    color:#000;
+    font-size:2em;
+    margin-left:20px;
+    margin-top: 3px;
+  }
+  #writing{
+    margin-top:20px;
+  }
+}
