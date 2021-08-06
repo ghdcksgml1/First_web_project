@@ -81,26 +81,32 @@
                             <div class="selectBox">
                                 <select name="birthYear" id="birthYear">
                                     <option value="">연도</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2015">2015</option>
-                                    <option value="2014">2014</option>
-                                    <option value="2013">2013</option>
+                                    <?php
+                                        $nowYear = date('Y',time());
+                                        for($i = $nowYear;$i>=1900;$i--){?>
+                                            <option value="<?=$i?>"><?=$i?></option>
+                                        <?php
+                                    }?>                                    
                                 </select>
                             </div>
                             <div class="selectBox selectBoxMargin">
                                 <select name="birthMonth" id="birthMonth">
                                     <option value="">월</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    <?php
+                                        for($i=1;$i<=12;$i++){?>
+                                            <option value="<?=$i?>"><?=$i?></option>
+                                        <?php
+                                        }?>
                                 </select>
                             </div>
                             <div class="selectBox">
                                 <select name="birthDay" id="birthDay">
                                     <option value="">일</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    <?php
+                                        for($i=1;$i<=31;$i++){?>
+                                            <option value="<?=$i?>"><?=$i?></option>
+                                        <?php
+                                        }?>
                                 </select>
                             </div>
                         </div>
