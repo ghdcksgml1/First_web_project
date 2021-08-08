@@ -56,6 +56,31 @@ signUpSubmit.addEventListener('click',(event)=>{
         return false;
     }
 
+    // ajax
+    let emailcheck = false;
+    const url = "./database/myMember.php";
+    let emailCheck = false;
+    let response = await fetch(url,{
+    method:'POST',
+    data:{
+        mode:'emailCheck',userEmail:userEmail.value
+    }
+    async:false,
+    success:function(data){
+        console.log(data.result);
+        if(data.result == true){
+            emailCheck = true;
+        }else{
+            emailCheck=false;
+        }
+    },
+    error: function(request,status,error){
+        console.log('request '+request);
+        console.log('status ' +status);
+        console.log('error '+error);
+    }
+});
+
     if(userPw.value.length >= 8){
         console.log('the value of password is good');
     }else{
