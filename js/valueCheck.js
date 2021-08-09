@@ -35,9 +35,50 @@ const birthDay = document.querySelector('#birthDay');
 
 // 필터링 시 값이 오류일 때 무엇이 오류인지 보여주는 박스
 const valueError = document.querySelector('#valueError');
-
+window.onload(()=>{
+const url = '/database/myMember.php';
+const met = JSON.stringify({method:'POST',headers: {
+    'Content-Type': 'application/json;charset=utf-8'
+  },body:{mode:'emailCheck',userEmail: JSON.stringify(userEmail)}});
+let emailCheck = false;
+    console.log("!");
+    fetch(url,met)
+        // success:function(data){
+        //     console.log(data.result);
+        //     if(data.result == true){
+        //         emailCheck = true;
+        //         alert("성공");
+        //     }else{
+        //         emailCheck=false;
+        //     }
+        // },
+        // error: function(request,status,error){
+        //     console.log('request '+request);
+        //     console.log('status ' +status);
+        //     console.log('error '+error);
+        // }
+    .then(res =>{
+        res = JSON.parse(res);
+        if(res['body']['result']===true){
+            emailCheck=true;
+        }else{
+            emailCheck=false;
+            throw new Error("Error in then()");
+        }
+    }).catch(err =>{
+        console.log('then error : ',err);
+    }).then(()=>{
+        if(emailCheck== false){
+            userEmail.focus();
+            timeOutCall();
+            return false;
+        }
+    });
+});
 // [가입하기] 버튼 클릭 이벤트
 signUpSubmit.addEventListener('click',(event)=>{
+    
+
     if(userName.value === ''){
         valueError.innerText='이름을 입력하세요.';
         userName.focus();
@@ -57,30 +98,7 @@ signUpSubmit.addEventListener('click',(event)=>{
     }
 
     // ajax
-    let emailcheck = false;
-    const url = "./database/myMember.php";
-    let emailCheck = false;
-    let response = await fetch(url,{
-    method:'POST',
-    data:{
-        mode:'emailCheck',userEmail:userEmail.value
-    }
-    async:false,
-    success:function(data){
-        console.log(data.result);
-        if(data.result == true){
-            emailCheck = true;
-        }else{
-            emailCheck=false;
-        }
-    },
-    error: function(request,status,error){
-        console.log('request '+request);
-        console.log('status ' +status);
-        console.log('error '+error);
-    }
-});
-
+    
     if(userPw.value.length >= 8){
         console.log('the value of password is good');
     }else{

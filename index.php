@@ -139,5 +139,5 @@
         </footer>
     </body>
     <script src="js/index.js"></script>
-    <script type="text/javascript" src="js/valueCheck.js"></script>
+    <script src="js/valueCheck.js"></script>
 </html>

@@ -22,7 +22,7 @@
         function signUp(){
             $userName = trim($_POST['userName']);
             if(!preg_match('/^[a-zA-Z가-힣]+$/',$userName)){
-                echo "올바른 이름이 아닙니다.";
+                //echo "<script>alert('올바른 이름이 아닙니다.'); location.href='../index.php';</script>";
                 exit;
             }
 
@@ -42,7 +42,7 @@
 
             $birthYear = (int) $_POST['birthYear'];
             if($birthYear == ''){
-                echo "생년 값이 반값입니다.";
+                echo "생년 값이 빈값입니다.";
                 exit;
             }
 
@@ -111,7 +111,7 @@
             }
 
             if($genderCheck == false){
-                echo "올바른 성별이 아닙니다.";
+                echo "<script>alert('올바른 성별이 아닙니다.'); location.href='../index.php';</script>";
                 exit;
             }
 
@@ -141,12 +141,26 @@
                 $_SESSION['myMemberSes']['coverPhoto'] = $coverPhoto;
                 header("Location:../me.php");
             }else{
-                echo "<script>alert('실패'); location.href='../index.php';</script>";
+                echo "<script>alert('실패123'); location.href='../index.php';</script>";
                 exit;
             }
         }
         function emailCheck(){
-            
+            echo "<script>alert('실패'); location.href='../index.php';</script>";
+
+            $result = false;
+            $email = $_POST['userEmail'];
+            if(filter_var($email,FILTER_VALIDATE_EMAIL)){
+                $sql = "SELECT * FROM mymember WHERE email = '{$email}'";
+                $this->dbConnection();
+                $res = mysqli_query($this->dbConnection,$sql);
+
+                if($res->num_rows == 0){
+                    $result = true;
+                }
+            }
+
+            echo json_encode(array('result' => $result));
         }
         function photoSave(){}
     }
