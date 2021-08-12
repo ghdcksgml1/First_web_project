@@ -35,57 +35,10 @@ const birthDay = document.querySelector('#birthDay');
 
 // 필터링 시 값이 오류일 때 무엇이 오류인지 보여주는 박스
 const valueError = document.querySelector('#valueError');
-window.onload(()=>{
-const url = '/database/myMember.php';
-const met = JSON.stringify({method:'POST',headers: {
-    'Content-Type': 'application/json;charset=utf-8'
-  },body:{mode:'emailCheck',userEmail: JSON.stringify(userEmail)}});
-let emailCheck = false;
-    console.log("!");
-    fetch(url,met)
-        // success:function(data){
-        //     console.log(data.result);
-        //     if(data.result == true){
-        //         emailCheck = true;
-        //         alert("성공");
-        //     }else{
-        //         emailCheck=false;
-        //     }
-        // },
-        // error: function(request,status,error){
-        //     console.log('request '+request);
-        //     console.log('status ' +status);
-        //     console.log('error '+error);
-        // }
-    .then(res =>{
-        res = JSON.parse(res);
-        if(res['body']['result']===true){
-            emailCheck=true;
-        }else{
-            emailCheck=false;
-            throw new Error("Error in then()");
-        }
-    }).catch(err =>{
-        console.log('then error : ',err);
-    }).then(()=>{
-        if(emailCheck== false){
-            userEmail.focus();
-            timeOutCall();
-            return false;
-        }
-    });
-});
 // [가입하기] 버튼 클릭 이벤트
+
 signUpSubmit.addEventListener('click',(event)=>{
     
-
-    if(userName.value === ''){
-        valueError.innerText='이름을 입력하세요.';
-        userName.focus();
-        timeOutCall();
-        event.preventDefault();
-        return false;
-    }
     
     if(userEmail.value.length >= 8){
         console.log('exp email good');
@@ -98,6 +51,39 @@ signUpSubmit.addEventListener('click',(event)=>{
     }
 
     // ajax
+    let emailCheck = false;
+    const url = 'database/myMember.php';  
+    const met = {method:'POST',headers:{'Content-Type': 'application/json'},
+    body:JSON.stringify({mode:"emailCheck",userEmail: userEmail.value})};
+    fetch(url,met)
+        .then(res=>{
+            try {
+                return res.json();
+            } catch (error) {
+                valueError.innerText="이미 존재하는 이메일 주소입니다.";
+                userEmail.focus();
+                timeOutCall();
+                return false;
+            }})
+        .then(data=>{
+            if(data.result==true){
+                console.log(data.result);
+            }else{
+                valueError.innerText="이미 존재하는 이메일 주소입니다.";
+                userEmail.focus();
+                timeOutCall();
+                return false;
+            }});
+
+    
+
+    if(userName.value === ''){
+        valueError.innerText='이름을 입력하세요.';
+        userName.focus();
+        timeOutCall();
+        event.preventDefault();
+        return false;
+    }
     
     if(userPw.value.length >= 8){
         console.log('the value of password is good');
