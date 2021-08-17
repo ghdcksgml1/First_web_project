@@ -52,7 +52,7 @@ signUpSubmit.addEventListener('click',(event)=>{
 
     // ajax
     let emailCheck = false;
-    const url = 'database/myMember.php';  
+    const url = '/database/myMember.php';  
     const met = {method:'POST',headers:{'Content-Type': 'application/json'},
     body:JSON.stringify({mode:"emailCheck",userEmail: userEmail.value})};
     fetch(url,met)
