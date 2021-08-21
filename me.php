@@ -13,7 +13,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/common/session.php';
     <link rel="stylesheet" href="./css/me.css" />
     <style>
         #myWallPhoto {
-            background: url('./images/me/happyCat.png');
+            background: url('<?= $_SESSION['myMemberSes']['coverPhoto'] ?>');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: 50% 50%;
@@ -30,9 +30,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/common/session.php';
         <div id="center">
             <div id="myWallPhoto"></div>
             <div id="myProfilePhoto">
-                <img src="./images/me/happyCat.png" />
+                <img src="<?= $_SESSION['myMemberSes']['profilePhoto'] ?>" />
             </div>
-            <p id="name">홍찬희</p>
+            <p id="name"><?= $_SESSION['myMemberSes']['userName'] ?></p>
             <div class="myButtonBox">
                 <a href="./log/memberLogs/myLog_1111.txt" download>나의 로그 다운로드</a>
             </div>
@@ -62,8 +62,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/common/session.php';
                 <!-- timeline -->
                 <div id="writing">
                     <div class="me">
-                        <img src="./images/me/happyCat.png" />
-                        <p>홍찬희</p>
+                        <img src="<?= $_SESSION['myMemberSes']['profilePhoto'] ?>" />
+                        <p><?= $_SESSION['myMemberSes']['userName'] ?></p>
                     </div>
                     <textarea maxlength="500" id="meContent"></textarea>
                     <div id="inputBox">
@@ -72,7 +72,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/common/session.php';
                 </div>
                 <div class="reading">
                     <div class="writerArea">
-                        <img src="./images/me/happyCat.png" />
+                        <img src="<?= $_SESSION['myMemberSes']['profilePhoto'] ?>" />
                         <div class="writingInfo">
                             <p>홍찬희</p>
                             <div class="writingData">2030년 12월 25일</div>
@@ -89,14 +89,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/common/session.php';
 
                     <div class="myCommentArea myCommentArea861225">
                         <div class="commentBox">
-                            <img src="./images/me/happyCat.png" />
+                            <img src="<?= $_SESSION['myMemberSes']['profilePhoto'] ?>" />
                             <p class="commentRegTime">2013년 12월 25일</p>
                             <p class="commentPoster">홍찬희</p>
                             <p class="writtenComment">정말 반갑습니다.</p>
                         </div>
                     </div>
                     <div class="inputBox">
-                        <img src="./images/me/happyCat.png" />
+                        <img src="<?= $_SESSION['myMemberSes']['profilePhoto'] ?>" />
                         <input type="text" class="inputComment comments861225" placeholder="코멘트 입력" />
                         <div class="regCommentBox">
                             <input type="button" class="regCommentBtn" id="comments861225" value="게시" />
@@ -111,6 +111,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/common/session.php';
             더 이상 콘텐츠가 없습니다.
         </div>
     </div>
+    <p id="name"><?= $_SESSION['myMemberSes']['userName'] ?></p>
 </body>
 <script src="/js/me.js"></script>
 

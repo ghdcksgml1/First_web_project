@@ -105,9 +105,9 @@
             </div>
         </section>
     </div>
-    <footer>
-        <p>My First Web Service</p>
-    </footer>
+    <?php
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/include/footer.php';
+    ?>
 </body>
 <script src="js/index.js"></script>
 <script src="js/valueCheck.js"></script>

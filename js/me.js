@@ -8,6 +8,14 @@ window.onload = function(){
             meContent.focus();
             return false;
         }
-        // back end
     });
+
+    // back end
+    var logoutBtn = document.querySelector('#logoutBtn');
+
+    logoutBtn.addEventListener('click',()=>{
+        location.href = '/logout.php';
+    });
+    // 스크롤 80% 도달 시 게시물 더 불러오기 기능 구현
+    
 }
