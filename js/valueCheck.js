@@ -66,7 +66,7 @@ signUpSubmit.addEventListener('click',(event)=>{
                 return false;
             }})
         .then(data=>{
-            if(data.result==true){
+            if(data.result===true){
                 console.log(data.result);
             }else{
                 valueError.innerText="이미 존재하는 이메일 주소입니다.";
