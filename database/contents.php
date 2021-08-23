@@ -17,11 +17,13 @@ class contents
     {
         $data = file_get_contents('php://input');
         $data_array = json_decode($data);
-        $this->mode = $data_array->mode;
-        if ($this->mode == 'save') {
-            $this->contentsSave($data_array->meContent);
-        } else if ($this->mode == 'loadMore') {
-            $this->contentsLoadMore($data_array->contentsLoadType, $data_array->page);
+        if (isset($data_array->mode)) {
+            $this->mode = $data_array->mode;
+            if ($this->mode == 'save') {
+                $this->contentsSave($data_array->meContent);
+            } else if ($this->mode == 'loadMore') {
+                $this->contentsLoadMore($data_array->contentsLoadType, $data_array->page);
+            }
         }
     }
 
@@ -44,10 +46,40 @@ class contents
     // 게시물 불러오기
     function contentsLoad($contentsLoadType)
     {
+        if ($contentsLoadType != 'me' && $contentsLoadType != 'all') {
+            echo "잘못된 정보가 입력되어 기능이 정지됩니다.";
+            exit;
+        }
+        $sqlMaker = '';
+        $myMemberID = $_SESSION['myMemberSes']['myMemberID'];
+
+        if ($contentsLoadType == 'me') {
+            $sqlMaker = 'WHERE c.myMemberID = ' . $myMemberID;
+        }
+
+        $sql = "SELECT c.contentsID, c.myMemberID, c.content, c.regTime, m.userName,m.profilePhoto
+        FROM contents c JOIN mymember m ON (c.myMemberID = m.myMemberID) {$sqlMaker} ORDER BY c.regTime DESC LIMIT 20";
+
+        $this->dbConnection();
+        $res = mysqli_query($this->dbConnection, $sql);
+
+        // if ($res) {
+        //     echo "연결 성공";
+        // } else {
+        //     echo "연결 실패";
+        // }
+
+        $content = array();
+
+        while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            array_push($content, $row);
+        }
+        return $content;
     }
     // 게시물 추가
     function contentsLoadMore($contentsLoadType, $page)
     {
     }
 }
+
 $contents = new contents;
