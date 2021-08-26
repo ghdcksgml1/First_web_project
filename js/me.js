@@ -33,5 +33,33 @@ window.onload = function(){
     });
     
     // 스크롤 80% 도달 시 게시물 더 불러오기 기능 구현
-    
+    window.addEventListener('scroll',()=>{
+        const page_num = document.querySelector('#page');
+        const nowScroll = window.scrollY;
+        const allScroll = document.body.scrollHeight;
+        if(page_num.value === 0){
+            return false;
+        }
+
+        const nowPercent = nowScroll / allScroll * 100;
+        if(nowPercent >= 80){
+            
+            const url = './database/contents.php';
+            const json_file = {method:'post',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({mode:'loadMore',contentsLoadType:'me',page: page_num.value})};
+            fetch(url,json_file)
+                .then(res=>{return res.json;})
+                .then(data=>{
+                    if(data.result===true){
+                        const content = data.content;
+                        if(content.length < 20){
+                            page_num.value = '0';
+                            document.querySelector('#noContents').style.display = 'block';
+                        }else{
+                            page_num.value = parseInt(page_num.value)+1;
+                        }
+                    }
+                })
+        }
+    });
 }

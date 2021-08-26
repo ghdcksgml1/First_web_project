@@ -113,13 +113,13 @@ $myContents = $contents->contentsLoad('me');
                 ?>
                 <!-- end of timeline -->
             </div>
-            <input type="hidden" name="page" id="page" value="1" />
+            <input type="hidden" name="page" id="page" value="<?= (($myContents >= 20) ? 1 : 0) ?>" />
         </div>
         <div id="noContents">
             더 이상 콘텐츠가 없습니다.
         </div>
     </div>
-    <p id="name"><?= $_SESSION['myMemberSes']['userName'] ?></p>
+
 </body>
 <script src="/js/me.js"></script>
 
