@@ -74,11 +74,45 @@ class contents
         while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
             array_push($content, $row);
         }
+
         return $content;
     }
     // 게시물 추가
     function contentsLoadMore($contentsLoadType, $page)
     {
+        $errorCheck = false;
+        if ($contentsLoadType != 'me' && $contentsLoadType != 'all') {
+            $errorCheck = true;
+        }
+
+        $page = (int) $page;
+        if ($page == 0) {
+            $errorCheck = true;
+        }
+
+        if ($errorCheck == true) {
+            echo json_encode(array('result' => false,));
+        }
+
+        $dataCount = 20;
+        $limitFirstValue = $page * $dataCount;
+        $sqlMaker = '';
+        $myMemberID = $_SESSION['myMemberSes']['myMemberID'];
+        if ($contentsLoadType == 'me') {
+            $sqlMaker = 'WHERE c.myMemberID = ' . $myMemberID;
+        }
+        $sql = "SELECT c.contentsID, c.myMemberID, c.content, c.regTime, m.userName,
+        m.profilePhoto FROM contents c JOIN mymember m ON (c.myMemberID = m.myMemberID) {$sqlMaker} ORDER BY c.regTime DESC LIMIT {$limitFirstValue}, {$dataCount}";
+        $this->dbConnection();
+        $res = mysqli_query($this->dbConnection, $sql);
+
+        $content = array();
+
+        while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            array_push($content, $row);
+        }
+
+        echo json_encode(array('result' => true, 'content' => $content));
     }
 }
 

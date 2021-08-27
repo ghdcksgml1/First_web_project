@@ -119,7 +119,9 @@ $myContents = $contents->contentsLoad('me');
             더 이상 콘텐츠가 없습니다.
         </div>
     </div>
-
+    <?php
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/include/footer.php';
+    ?>
 </body>
 <script src="/js/me.js"></script>
 
