@@ -43,6 +43,7 @@ class contents
         }
         echo json_encode(array('result' => $result));
     }
+
     // 게시물 불러오기
     function contentsLoad($contentsLoadType)
     {
@@ -52,6 +53,7 @@ class contents
         }
         $sqlMaker = '';
         $myMemberID = $_SESSION['myMemberSes']['myMemberID'];
+
 
         if ($contentsLoadType == 'me') {
             $sqlMaker = 'WHERE c.myMemberID = ' . $myMemberID;
@@ -103,6 +105,7 @@ class contents
         }
         $sql = "SELECT c.contentsID, c.myMemberID, c.content, c.regTime, m.userName,
         m.profilePhoto FROM contents c JOIN mymember m ON (c.myMemberID = m.myMemberID) {$sqlMaker} ORDER BY c.regTime DESC LIMIT {$limitFirstValue}, {$dataCount}";
+
         $this->dbConnection();
         $res = mysqli_query($this->dbConnection, $sql);
 

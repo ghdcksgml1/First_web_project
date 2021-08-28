@@ -19,8 +19,10 @@ window.onload = function(){
 
     mePostBtn.addEventListener('click',()=>{
         const url = './database/contents.php';
-        const json_file = {method:'POST',headers:{'Content-Type': 'application/json'},
-        body:JSON.stringify({mode:"save",meContent: document.querySelector('#meContent').value})};
+        // const json_file = {method:'POST',headers:{'Content-Type': 'application/json'},
+        // body:JSON.stringify({mode:"save",meContent: document.querySelector('#meContent').value})};
+        const json_file = {method:'POST',headers:{'Content-Type':'application/json'},
+                        body:JSON.stringify({mode:'loadMore',contentsLoadType:'me',page: 1})};
         fetch(url,json_file)
             .then(res=>{return res.json();})
             .then(data=>{
@@ -31,9 +33,10 @@ window.onload = function(){
                     alert('게시물 등록이 실패했습니다.');
                 }});
     });
-    
+}
+
     // 스크롤 80% 도달 시 게시물 더 불러오기 기능 구현
-    window.addEventListener('scroll',()=>{
+    window.addEventListener('scroll',throttle(()=>{
         const page_num = document.querySelector('#page');
         const nowScroll = window.scrollY;
         const allScroll = document.body.scrollHeight;
@@ -43,10 +46,11 @@ window.onload = function(){
         }
 
         const nowPercent = nowScroll / allScroll * 100;
+
         if(nowPercent >= 80){
             console.log("80 percent!!");
             const url = '/database/contents.php';
-            const json_file = {method:'post',headers:{'Content-Type':'application/json'},
+            const json_file = {method:'POST',headers:{'Content-Type':'application/json'},
                         body:JSON.stringify({mode:'loadMore',contentsLoadType:'me',page: page_num.value})};
             fetch(url,json_file)
                 .then(res=>{return res.json;})
@@ -97,5 +101,4 @@ window.onload = function(){
                     }
                 })
         }
-    });
-}
+    },300));
