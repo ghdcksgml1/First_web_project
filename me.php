@@ -112,6 +112,7 @@ $myContents = $contents->contentsLoad('me');
                 }
                 ?>
                 <!-- end of timeline -->
+                <div id="LoadedContents"> </div>
             </div>
             <input type="hidden" name="page" id="page" value="<?= (($myContents >= 20) ? 1 : 0) ?>" />
         </div>

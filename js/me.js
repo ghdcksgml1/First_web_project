@@ -1,13 +1,6 @@
     const meContent = document.querySelector('#meContent');
     const mePostBtn = document.querySelector('#mePostBtn');
 
-    mePostBtn.addEventListener('click',()=>{
-        if(meContent.value == ''){
-            alert('내용을 입력하세요.');
-            meContent.focus();
-            return false;
-        }
-    });
 
     // back end
     const logoutBtn = document.querySelector('#logoutBtn');
@@ -17,6 +10,13 @@
     });
 
     mePostBtn.addEventListener('click',()=>{
+        if(meContent.value == ''){
+            alert('내용을 입력하세요.');
+            meContent.focus();
+            return false;
+        }
+
+        
         const url = './database/contents.php';
         const json_file = {method:'POST',headers:{'Content-Type': 'application/json'},
         body:JSON.stringify({mode:"save",meContent: document.querySelector('#meContent').value})};
@@ -33,7 +33,6 @@
     });
 
 function debounce(callback,limit){
-    console.log("1");
     let timeout
     return function(...args){
         clearTimeout(timeout);
@@ -73,7 +72,7 @@ function debounce(callback,limit){
                 .then(data=>{
                     if(data.result===true){
                         const content = data.content;
-                        const center = document.querySelector('#center');
+                        const center = document.querySelector('#LoadedContents');
                         if(content.length < 20){
                             page_num.value = '0';
                             document.querySelector('#noContents').style.display = 'block';
