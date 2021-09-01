@@ -41,6 +41,48 @@ function debounce(callback,limit){
         }, limit);
     }
 }
+function throttle(callback, limit) {
+    let waiting = false
+    return function() {
+        if(!waiting) {
+            callback.apply(this, arguments)
+            waiting = true
+            setTimeout(() => {
+                waiting = false
+            }, limit)
+        }
+    }
+}
+// 댓글 추가하기
+// function addComment(){
+//     let commentsData = document.querySelectorAll('.regCommentBtn');
+
+//     for(let i=0;i<commentsData.length;i++){
+//         let commentData = commentsData[i];
+//         commentData.addEventListener('click',()=>{
+//             const commentID = `comments${i}`;
+//             const commentData = `.${commentID}`;
+//             const comment = document.querySelector(commentData);
+//             console.log(commentData);
+
+//             if(comment.value === ''){
+//                 alert('내용을 입력하세요.');
+//                 return false;
+//             }
+//         });
+//     }
+// }
+document.addEventListener('click',throttle((event)=>{
+    const event_id = event.target.id;
+    if(event_id.slice(0,8) === 'comments'){
+        const commentsID = event_id.slice(8);
+        const comment = document.querySelector(`.${event_id}`);
+        const url = './database/comments.php';
+        const json_file = {method:'POST',headers:{'Content-Type':'application/json'},
+                    body:JSON.stringify({mode:'save', contentsID: commentsID, comment: comment.value})};
+        fetch(url,json_file);
+    }
+},200));
 
     // 스크롤 80% 도달 시 게시물 더 불러오기 기능 구현
     window.addEventListener('scroll',debounce(()=>{
@@ -72,7 +114,8 @@ function debounce(callback,limit){
                 .then(data=>{
                     if(data.result===true){
                         const content = data.content;
-                        const center = document.querySelector('#LoadedContents');
+                        const center = document.querySelector('#center');
+                        
                         if(content.length < 20){
                             page_num.value = '0';
                             document.querySelector('#noContents').style.display = 'block';
@@ -82,6 +125,9 @@ function debounce(callback,limit){
                         
                         
                         for(let contents in content){
+                            const div = document.createElement('div');
+                            div.className = "LoadedContents";
+
                             let d = new Date(content[contents]['regTime'] * 1000);
                             let month = d.getMonth()+1;
                             let regTime = d.getFullYear()+'년 '+month+'월 '+d.getDate()+'일 '+d.getHours()+'시 '+d.getMinutes()+'분';
@@ -91,7 +137,7 @@ function debounce(callback,limit){
                             bbs = bbs.replace(/</g,'&lt;');
                             bbs = bbs.replace(/>/g,'$gt;');
 
-                            center.innerHTML += `<div class="reading">
+                            div.innerHTML = `<div class="reading">
                             <div class="writerArea">
                                 <img src="${content[contents]['profilePhoto']}" />
                                 <div class="writingInfo">
@@ -124,8 +170,10 @@ function debounce(callback,limit){
                                 </div>
                             </div>
                         </div>`;
+                            center.appendChild(div);
                         }
                     }
                 })
         }
-    },2000));
+    },200));
+
