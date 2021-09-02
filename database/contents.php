@@ -65,20 +65,32 @@ class contents
         $this->dbConnection();
         $res = mysqli_query($this->dbConnection, $sql);
 
-        // if ($res) {
-        //     echo "연결 성공";
-        // } else {
-        //     echo "연결 실패";
-        // }
-
         $content = array();
 
         while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            $commentLoad = $this->commentsLaod($row['contentsID']);
+            $row['comment'] = array();
+            while ($comments = mysqli_fetch_array($commentLoad, MYSQLI_ASSOC)) {
+                array_push($row['comment'], $comments);
+            }
             array_push($content, $row);
         }
 
+
         return $content;
     }
+
+    //댓글 불러오기
+    function commentsLaod($contentsID)
+    {
+        $sql = "SELECT c.contentsID, c.commentsID, c.comment, c.regTime, m.userName
+        , m.profilePhoto FROM comments c ";
+        $sql .= "INNER JOIN mymember m ON (c.myMemberID = m.myMemberID) WHERE contentsID = {$contentsID}";
+        $this->dbConnection();
+        $res = mysqli_query($this->dbConnection, $sql);
+        return $res;
+    }
+
     // 게시물 추가
     function contentsLoadMore($contentsLoadType, $page)
     {
