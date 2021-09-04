@@ -47,7 +47,7 @@ class comments
         $time = time();
 
         $sql = "INSERT INTO comments(contentsID, myMemberID, comment, regTime) ";
-        $sql .= "VALUES({$contentsID}, {$myMemberID}, {$comment}, {$time})";
+        $sql .= "VALUES({$contentsID}, {$myMemberID}, '{$comment}', {$time})";
         $res = mysqli_query($this->dbConnection, $sql);
 
         $result = false;

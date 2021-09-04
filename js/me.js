@@ -60,10 +60,38 @@ document.addEventListener('click',throttle((event)=>{
     if(event_id.slice(0,8) === 'comments'){
         const commentsID = event_id.slice(8);
         const comment = document.querySelector(`.${event_id}`);
+
+        if(comment.value === ''){
+            alert('내용을 입력하세요.');
+            return false;
+        }
+
         const url = './database/comments.php';
         const json_file = {method:'POST',headers:{'Content-Type':'application/json'},
                     body:JSON.stringify({mode:'save', contentsID: commentsID, comment: comment.value})};
-        fetch(url,json_file);
+        fetch(url,json_file)
+            .then(res=>{return res.json()})
+            .then(data=>{
+                if(data.result === true){
+                    const d = new Date(data.regTime * 1000);
+                    const month = d.getMonth()+1;
+                    const regTime = d.getFullYear()+'년 '+month+'월 '+d.getDate()+'일 '+d.getHours()+'시 '+d.getMinutes()+'분';
+
+                    let div = document.createElement('div');
+                    div.innerHTML = "";
+                    div.innerHTML += `<div class='commentBox'>
+                    <img src="${data.profilePhoto}"/>
+                    <p class="commentRegTime">${regTime}</p>
+                    <p class="commentPoster">${data.poster}</p>
+                    <p class="writtenComment">${comment.value}</p>
+                    </div>`;
+
+                    document.querySelector(`.myCommentArea${commentsID}`).append(div);
+                    comment.value = '';
+                }else{
+                    alert('댓글 등록 실패');
+                }
+            });
     }
 },200));
 

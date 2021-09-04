@@ -92,19 +92,24 @@ $myContents = $contents->contentsLoad('me');
                             <div class="contentsID">콘텐츠 번호: <?= $mc['contentsID'] ?></div>
                         </div>
 
-                        <div class="myCommentArea myCommentArea861225">
-                            <div class="commentBox">
-                                <img src="<?= $_SESSION['myMemberSes']['profilePhoto'] ?>" />
-                                <p class="commentRegTime">2013년 12월 25일</p>
-                                <p class="commentPoster">홍찬희</p>
-                                <p class="writtenComment">정말 반갑습니다.</p>
-                            </div>
+                        <div class="myCommentArea myCommentArea<?= $mc['contentsID'] ?>">
+                            <?php
+                            foreach ($mc['comment'] as $comment) { ?>
+                                <div class="commentBox">
+                                    <img src="<?= $comment['profilePhoto'] ?>" />
+                                    <p class="commentRegTime"><?= date('Y년 m월 d일 H시 i분', $comment['regTime']) ?></p>
+                                    <p class="commentPoster"><?= $comment['userName'] ?></p>
+                                    <p class="writtenComment"><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
+                                </div>
+                            <?php
+                            }
+                            ?>
                         </div>
                         <div class="inputBox">
                             <img src="<?= $_SESSION['myMemberSes']['profilePhoto'] ?>" />
-                            <input type="text" class="inputComment comments861225" placeholder="코멘트 입력" />
+                            <input type="text" class="inputComment comments<?= $mc['contentsID'] ?>" placeholder="코멘트 입력" />
                             <div class="regCommentBox">
-                                <input type="button" class="regCommentBtn" id="comments861225" value="게시" />
+                                <input type="button" class="regCommentBtn" id="comments<?= $mc['contentsID'] ?>" value="게시" />
                             </div>
                         </div>
                     </div>
