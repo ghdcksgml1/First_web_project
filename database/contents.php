@@ -124,6 +124,11 @@ class contents
         $content = array();
 
         while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            $commentLoad = $this->commentsLaod($row['contentsID']);
+            $row['comment'] = array();
+            while ($comments = mysqli_fetch_array($commentLoad, MYSQLI_ASSOC)) {
+                array_push($row['comment'], $comments);
+            }
             array_push($content, $row);
         }
 

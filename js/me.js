@@ -158,10 +158,15 @@ window.addEventListener('scroll',debounce(()=>{
                         </div>`;
                         
                         for(let commentsNum in content[contents]['comment']){
+                            d = new Date(content[contents]['regTime'] * 1000);
+                            month = d.getMonth()+1;
+                            regTime = d.getFullYear()+'년 '+month+'월 '+d.getDate()+'일 '+d.getHours()+'시 '+d.getMinutes()+'분';
+                        
+                            
                             div.innerHTML += `<div class="myCommentArea myCommentArea${content[contents]['comment'][commentsNum]['contentsID']}">
                                 <div class="commentBox">
                                     <img src="${content[contents]['comment'][commentsNum]['profilePhoto']}" />
-                                    <p class="commentRegTime">${content[contents]['comment'][commentsNum]['regTime']}</p>
+                                    <p class="commentRegTime">${regTime}</p>
                                     <p class="commentPoster">${content[contents]['comment'][commentsNum]['userName']}</p>
                                     <p class="writtenComment">${content[contents]['comment'][commentsNum]['comment']}</p>
                                 </div>
