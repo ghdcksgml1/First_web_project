@@ -87,7 +87,7 @@ $myContents = $contents->contentsLoad('me');
 
 
                         <div class="likeArea">
-                            <div class="likeNum likes<?= $mc['contentsID'] ?>" style="background:#fff">공감 수: 250</div>
+                            <div class="likeNum likes<?= $mc['contentsID'] ?>" style="background:#fff">공감 수: 0</div>
                             <div class="likeBtn" id="likes<?= $mc['contentsID'] ?>">공감하기</div>
                             <div class="contentsID">콘텐츠 번호: <?= $mc['contentsID'] ?></div>
                         </div>

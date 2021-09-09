@@ -93,6 +93,26 @@ document.addEventListener('click',throttle((event)=>{
                 }
             });
     }
+
+    // 공감버튼
+    if(event_id.slice(0,5) === 'likes'){
+        // ID 저장
+        const likesID = event_id.slice(5);
+        const mode = (event.target.value === 0)?'new':'plus'; // 공감 수가 0이면 new, 1이상이면 plus
+    
+        const url = './database/likes.php';
+        const json_file = {method:'POST',headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({mode:mode,contentsID:likesID})};
+        fetch(url,json_file)
+            .then(res=>{return res.json()})
+            .then(data => {
+                // data => result, likes, 
+                if(data.result === true){
+                    event.target.value = `공감 수: ${data.likes}`; // 좋아요 개수
+                    document.querySelector(`.${event_id}`).style.background = '#64cbf9';
+                }
+            });
+    }
 },200));
 
 // 스크롤 80% 도달 시 게시물 더 불러오기 기능 구현
